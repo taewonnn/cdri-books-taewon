@@ -1,3 +1,9 @@
+import Empty from '../components/common/Empty';
+
 export default function SearchPage() {
-  return <div>Search</div>;
+  return (
+    <div>
+      <Empty />
+    </div>
+  );
 }
