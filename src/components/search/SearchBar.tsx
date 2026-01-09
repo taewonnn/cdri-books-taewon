@@ -1,17 +1,40 @@
-import { useRef } from 'react';
+import { useEffect, useState } from 'react';
 
-export default function SearchBar() {
-  const wrapRef = useRef<HTMLDivElement>(null);
+type SearchBarProps = {
+  initialValue?: string;
+  onSubmit: (query: string) => void;
+};
+export default function SearchBar({ initialValue = '', onSubmit }: SearchBarProps) {
+  const [value, setValue] = useState(initialValue);
+
+  useEffect(() => {
+    setValue(initialValue);
+  }, [initialValue]);
+
+  const submit = () => {
+    const query = value.trim();
+    if (!query) return;
+
+    onSubmit(query);
+  };
 
   return (
-    <div ref={wrapRef} className="relative flex items-center gap-4">
+    <div className="relative flex items-center gap-4">
       {/* 입력 박스 */}
       <div className="flex-1">
         <div className="flex items-center h-12 rounded-full bg-gray-100 px-4">
           {/* 왼쪽 검색 아이콘 */}
           <span className="mr-3 text-gray-500 select-none">🔍</span>
 
-          <input className="w-full bg-transparent outline-none text-sm" placeholder="검색어를 입력하세요" />
+          <input
+            className="w-full bg-transparent outline-none text-sm"
+            placeholder="검색어를 입력하세요"
+            value={value}
+            onChange={e => setValue(e.target.value)}
+            onKeyDown={e => {
+              if (e.key === 'Enter') submit();
+            }}
+          />
         </div>
 
         {/* @todo 최근검색어 드롭다운 */}
