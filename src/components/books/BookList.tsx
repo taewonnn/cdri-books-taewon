@@ -6,9 +6,11 @@ import BookListItemSkeleton from './BookListSkeleton';
 type BookListProps = {
   books: Book[];
   isLoading: boolean;
+  isFetchingNextPage: boolean;
+  nextSkeletonCount: number;
 };
 
-export default function BookList({ books, isLoading }: BookListProps) {
+export default function BookList({ books, isLoading, isFetchingNextPage, nextSkeletonCount }: BookListProps) {
   if (isLoading) {
     return (
       <ul className="w-full max-w-240 bg-white overflow-hidden">
@@ -24,8 +26,13 @@ export default function BookList({ books, isLoading }: BookListProps) {
   return (
     <ul className="w-full max-w-240 bg-white overflow-hidden">
       {books.map(book => (
-        <BookListItem key={book.isbn} book={book} />
+        <BookListItem key={book.isbn || book.url} book={book} />
       ))}
+
+      {isFetchingNextPage &&
+        Array.from({ length: nextSkeletonCount }).map((_, index) => (
+          <BookListItemSkeleton key={`next-skeleton-${index}`} />
+        ))}
     </ul>
   );
 }

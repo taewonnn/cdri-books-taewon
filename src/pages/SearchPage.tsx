@@ -10,7 +10,7 @@ export default function SearchPage() {
     <div className="px-9">
       {/* 검색 */}
       <SearchSection className="mt-26">
-        <SearchBar onSubmit={query => navigate(`/search?query=${encodeURIComponent(query)}&page=1`)} />
+        <SearchBar onSubmit={query => navigate(`/search?query=${encodeURIComponent(query)}`)} />
       </SearchSection>
 
       <div className="mt-6">
