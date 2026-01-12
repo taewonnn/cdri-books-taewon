@@ -69,19 +69,19 @@ export default function DetailSearch({
     <div
       className="
         absolute right-0 top-full mt-3 z-50
-        max-w-90
+        w-full max-w-[360px] sm:max-w-90
       "
       onPointerDown={e => e.stopPropagation()}
     >
-      <div className="bg-white rounded-lg p-6 [box-shadow:0px_4px_14px_6px_rgba(151,151,151,0.15)]">
+      <div className="bg-white rounded-lg p-5 sm:p-6 [box-shadow:0px_4px_14px_6px_rgba(151,151,151,0.15)]">
         {/* 닫기 버튼 */}
         <div className="flex justify-end">
           <button type="button" className="text-[#B1B8C0] mb-2 h-2.75" aria-label="상세검색 닫기" onClick={onClose}>
             ✕
           </button>
         </div>
-        <div className="flex items-center gap-6">
-          <div ref={selectWrapRef} className="relative w-25">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6">
+          <div ref={selectWrapRef} className="relative w-full sm:w-25">
             <button
               type="button"
               className="w-full flex items-center justify-between border-b border-[#D2D6DA] py-2 text-sm font-bold text-primary"

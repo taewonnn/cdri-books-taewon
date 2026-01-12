@@ -7,7 +7,7 @@ export default function SearchPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="px-9">
+    <div className="px-4 sm:px-6 md:px-9">
       {/* 검색 */}
       <SearchSection className="mt-26">
         <SearchBar

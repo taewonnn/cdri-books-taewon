@@ -81,7 +81,7 @@ export default function SearchBar({ initialValue = '', onSubmit }: SearchBarProp
   const isHistoryOpen = historyOpen && history.length > 0;
 
   return (
-    <div className="relative flex items-center gap-4" ref={outsideRef}>
+    <div className="relative flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4" ref={outsideRef}>
       <div className="flex-1">
         <div className="relative">
           <div
@@ -149,7 +149,7 @@ export default function SearchBar({ initialValue = '', onSubmit }: SearchBarProp
 
       <button
         type="button"
-        className="h-12 px-4 rounded-lg border text-sm"
+        className="h-11 sm:h-12 px-4 rounded-lg border text-sm w-full sm:w-auto"
         onClick={() => {
           if (value.trim().length > 0) resetGeneral(); // 검색어가 있으면 초기화
           setDetailOpen(v => !v);

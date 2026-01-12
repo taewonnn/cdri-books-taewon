@@ -6,8 +6,8 @@ type ISearchSection = {
 
 export default function SearchSection({ title = '도서 검색', children, className = '' }: ISearchSection) {
   return (
-    <section className={`max-w-142 ${className}`}>
-      <h1 className="text-2xl font-bold mb-4">{title}</h1>
+    <section className={`w-full max-w-5xl ${className}`}>
+      <h1 className="text-xl sm:text-2xl font-bold mb-4">{title}</h1>
       {children}
     </section>
   );

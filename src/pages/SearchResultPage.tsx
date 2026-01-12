@@ -18,7 +18,7 @@ export default function SearchResultPage() {
   const totalCount = data?.pages?.[0]?.meta?.total_count ?? 0;
 
   return (
-    <div>
+    <div className="px-4 sm:px-6 md:px-0">
       {/* 검색 */}
       <SearchSection className="mt-26">
         <SearchBar
