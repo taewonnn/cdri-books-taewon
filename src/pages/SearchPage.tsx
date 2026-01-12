@@ -25,7 +25,7 @@ export default function SearchPage() {
           도서 검색 결과 총 <span className="text-blue">0</span>건
         </p>
         <div className="flex justify-center items-center mt-32">
-          <Empty />
+          <Empty message="검색된 결과가 없습니다." />
         </div>
       </div>
     </div>
