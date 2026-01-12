@@ -18,7 +18,9 @@ export default function AppLayout() {
               <Link
                 to="/"
                 className={`pb-0.5 border-b transition-colors ${
-                  location.pathname === '/' ? 'border-primary text-primary' : 'border-transparent text-black'
+                  location.pathname === '/' || location.pathname.startsWith('/search')
+                    ? 'border-primary text-primary'
+                    : 'border-transparent text-black'
                 }`}
               >
                 도서 검색

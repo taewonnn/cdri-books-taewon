@@ -21,7 +21,7 @@ export default function BookList({ books, isLoading, isFetchingNextPage, nextSke
     );
   }
 
-  if (!books || books.length === 0) return <Empty />;
+  if (!books || books.length === 0) return <Empty message="검색된 결과가 없습니다." />;
 
   return (
     <ul className="w-full max-w-240 bg-white overflow-hidden">

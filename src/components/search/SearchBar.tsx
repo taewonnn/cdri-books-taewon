@@ -16,13 +16,13 @@ const targetByField: Record<DetailField, BookSearchOptions['target']> = {
 };
 
 export default function SearchBar({ initialValue = '', onSubmit }: SearchBarProps) {
-  const [value, setValue] = useState(initialValue);
+  const [value, setValue] = useState(initialValue); // 전체검색 검색어
   const { history, add, remove, clear } = useSearchHistory(); // 검색 기록
   const [historyOpen, setHistoryOpen] = useState(false); // 검색기록 팝업 열림 여부
 
-  const [detailOpen, setDetailOpen] = useState(false);
-  const [detailField, setDetailField] = useState<DetailField>('title');
-  const [detailKeyword, setDetailKeyword] = useState('');
+  const [detailOpen, setDetailOpen] = useState(false); // 상세검색 팝업 열림 여부
+  const [detailField, setDetailField] = useState<DetailField>('title'); // 상세검색 필드
+  const [detailKeyword, setDetailKeyword] = useState(''); // 상세검색 검색어
 
   const outsideRef = useRef<HTMLDivElement | null>(null);
 
@@ -31,6 +31,7 @@ export default function SearchBar({ initialValue = '', onSubmit }: SearchBarProp
   }, [initialValue]);
 
   useEffect(() => {
+    // 외부 클릭 시 검색기록과 상세검색 팝업 닫기
     const onPointerDown = (e: PointerEvent) => {
       const el = outsideRef.current;
       if (!el) return;
@@ -44,17 +45,31 @@ export default function SearchBar({ initialValue = '', onSubmit }: SearchBarProp
     return () => document.removeEventListener('pointerdown', onPointerDown);
   }, []);
 
+  const resetDetail = () => {
+    setDetailOpen(false);
+    setDetailField('title');
+    setDetailKeyword('');
+  };
+
+  /** 전체검색(인풋) 상태 초기화 */
+  const resetGeneral = () => {
+    setHistoryOpen(false);
+    setValue('');
+  };
+
   /** 검색 실행 */
   const handleSubmit = (q?: string) => {
     const query = (q ?? value).trim();
     if (!query) return;
+
+    resetDetail(); // 상세검색 초기화
 
     onSubmit({ query });
     add(query); // 검색 기록 저장
     setHistoryOpen(false); // 검색창 닫기
   };
 
-  // 상세검색
+  /** 상세검색 */
   const submitDetail = () => {
     const query = detailKeyword.trim();
     if (!query) return;
@@ -132,9 +147,17 @@ export default function SearchBar({ initialValue = '', onSubmit }: SearchBarProp
         </div>
       </div>
 
-      <button type="button" className="h-12 px-4 rounded-lg border text-sm" onClick={() => setDetailOpen(v => !v)}>
+      <button
+        type="button"
+        className="h-12 px-4 rounded-lg border text-sm"
+        onClick={() => {
+          if (value.trim().length > 0) resetGeneral(); // 검색어가 있으면 초기화
+          setDetailOpen(v => !v);
+        }}
+      >
         상세검색
       </button>
+
       {/* 상세검색 팝업 */}
       <DetailSearch
         open={detailOpen}

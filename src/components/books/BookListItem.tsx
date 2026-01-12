@@ -4,12 +4,13 @@ import Img from '../common/Img';
 import likeFillIcon from '@/assets/like_fill.svg';
 import likeLineIcon from '@/assets/like_line.svg';
 import bookPlaceholder from '@/assets/book.svg';
+import { useWishListStore } from '../stores/useWishListStore';
 
 export default function BookListItem({ book }: { book: Book }) {
   const [open, setOpen] = useState(false);
-  const [liked, setLiked] = useState(false);
+  const liked = useWishListStore(s => s.isWished(book));
+  const toggle = useWishListStore(s => s.toggle);
 
-  // authors 타입이 string | string[] 섞여있을 수 있어서 안전하게 텍스트로 통일
   const authorsText = useMemo(() => {
     if (!book.authors) return '';
     return Array.isArray(book.authors) ? book.authors.join(', ') : book.authors;
@@ -38,10 +39,10 @@ export default function BookListItem({ book }: { book: Book }) {
               type="button"
               onClick={e => {
                 e.preventDefault();
-                setLiked(prev => !prev);
+                toggle(book);
               }}
               className="absolute top-1 right-1 w-4 h-4 flex items-center justify-center transition-transform"
-              aria-label={liked ? '좋아요 취소' : '좋아요'}
+              aria-label={liked ? '찜 취소' : '찜'}
             >
               <Img src={liked ? likeFillIcon : likeLineIcon} alt="like button" width={13} height={12} />
             </button>
@@ -99,10 +100,10 @@ export default function BookListItem({ book }: { book: Book }) {
               type="button"
               onClick={e => {
                 e.preventDefault();
-                setLiked(prev => !prev);
+                toggle(book);
               }}
               className="absolute top-3 right-3 w-6 h-6 rounded-full flex items-center justify-center"
-              aria-label={liked ? '좋아요 취소' : '좋아요'}
+              aria-label={liked ? '찜 취소' : '찜'}
             >
               <Img src={liked ? likeFillIcon : likeLineIcon} alt="like button" width={20} height={17} />
             </button>
