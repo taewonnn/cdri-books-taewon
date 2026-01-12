@@ -26,7 +26,7 @@ export default function BookList({ books, isLoading, isFetchingNextPage, nextSke
   return (
     <ul className="w-full max-w-240 bg-white overflow-hidden">
       {books.map(book => (
-        <BookListItem key={book.isbn || book.url} book={book} />
+        <BookListItem key={book.url || book.isbn} book={book} />
       ))}
 
       {isFetchingNextPage &&
