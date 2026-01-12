@@ -7,7 +7,7 @@ export default function WishListPage() {
   const totalCount = wishedBooks.length;
 
   return (
-    <div className="px-9">
+    <div className="px-4 sm:px-6 md:px-9">
       <div className="mt-26 flex justify-center">
         <div className="w-full max-w-240">
           <h1 className="text-2xl font-bold text-primary">내가 찜한 책</h1>

@@ -13,7 +13,7 @@ type BookListProps = {
 export default function BookList({ books, isLoading, isFetchingNextPage, nextSkeletonCount }: BookListProps) {
   if (isLoading) {
     return (
-      <ul className="w-full max-w-240 bg-white overflow-hidden">
+      <ul className="w-full max-w-5xl bg-white overflow-hidden mx-auto">
         {Array.from({ length: 10 }).map((_, index) => (
           <BookListItemSkeleton key={index} />
         ))}
@@ -24,7 +24,7 @@ export default function BookList({ books, isLoading, isFetchingNextPage, nextSke
   if (!books || books.length === 0) return <Empty message="검색된 결과가 없습니다." />;
 
   return (
-    <ul className="w-full max-w-240 bg-white overflow-hidden">
+    <ul className="w-full max-w-5xl bg-white overflow-hidden mx-auto">
       {books.map(book => (
         <BookListItem key={book.url || book.isbn} book={book} />
       ))}
