@@ -10,7 +10,14 @@ export default function SearchPage() {
     <div className="px-9">
       {/* 검색 */}
       <SearchSection className="mt-26">
-        <SearchBar onSubmit={query => navigate(`/search?query=${encodeURIComponent(query)}`)} />
+        <SearchBar
+          onSubmit={({ query, target }) => {
+            const search = new URLSearchParams();
+            search.set('query', query);
+            if (target) search.set('target', target); // 상세검색일 때만
+            navigate(`/search?${search.toString()}`);
+          }}
+        />
       </SearchSection>
 
       <div className="mt-6">

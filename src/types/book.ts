@@ -23,3 +23,5 @@ export type BookSearchRes = {
   documents: Book[];
   meta: BookSearchMeta;
 };
+
+export type DetailField = 'title' | 'author' | 'publisher';

@@ -3,15 +3,16 @@ import SearchBar from '@/components/search/SearchBar';
 import SearchSection from '@/components/search/SearchSection';
 import useSearchBooks from '@/hooks/useSearchBooks';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import type { BookSearchOptions } from '@/api/books';
 
 export default function SearchResultPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const query = searchParams.get('query') ?? '';
+  const target = (searchParams.get('target') as BookSearchOptions['target']) ?? undefined;
 
   /** 검색 결과 */
-  /** @todo 시간 남으면 중복 제거 */
-  const { data, isPending, fetchNextPage, hasNextPage, isFetchingNextPage } = useSearchBooks({ query });
+  const { data, isPending, fetchNextPage, hasNextPage, isFetchingNextPage } = useSearchBooks({ query, target });
 
   const books = data?.pages.flatMap(page => page.documents) ?? [];
   const totalCount = data?.pages?.[0]?.meta?.total_count ?? 0;
@@ -20,7 +21,15 @@ export default function SearchResultPage() {
     <div>
       {/* 검색 */}
       <SearchSection className="mt-26">
-        <SearchBar initialValue={query} onSubmit={q => navigate(`/search?query=${encodeURIComponent(q)}`)} />
+        <SearchBar
+          initialValue={query}
+          onSubmit={({ query, target }) => {
+            const search = new URLSearchParams();
+            search.set('query', query);
+            if (target) search.set('target', target); // 상세검색일 때만
+            navigate(`/search?${search.toString()}`);
+          }}
+        />
       </SearchSection>
 
       <p className="mt-6 mb-9 text-base text-primary font-medium">
