@@ -36,7 +36,7 @@ export default function AppLayout() {
         </div>
       </header>
 
-      <div className="px-120">
+      <div className="max-w-5xl mx-auto ">
         <Outlet />
       </div>
     </div>

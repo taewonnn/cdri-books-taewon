@@ -17,8 +17,4 @@
 
   /** font */
   --font-family-primary: 'Noto Sans KR', sans-serif;
-
-  /** @todo 시간남으면 반응형 */
-  --breakpoint-tablet: 768px;
-  --breakpoint-pc: 1280px;
 }
